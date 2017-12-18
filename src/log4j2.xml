@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="sbi" packages="CSI">
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd_HH:mm} [ %F:%L ] %m%n"/>
+    </Console>
+<!--     <RollingFile name="sbiLog" fileName="/data/log/sbi/addrSearch/app-${date:yyyy-MM-dd}.log" filePattern="/data/log/sbi/addrSearch/over.log"/> -->
+<!--     <RollingFile name="notFound" fileName="/data/log/sbi/addrSearch/notfound-${date:yyyy-MM-dd}.log" filePattern="/data/log/sbi/addrSearch/over2.log"/> -->
+<!--     <RollingFile name="sbiLog" append="true" fileName="/data/log/sbi/addrSearch/addrSearch.log" filePattern="/data/log/sbi/addrSearch/addrSearch.log.%i"> -->
+<!--       <PatternLayout pattern="%m%n"/> -->
+<!--       <SizeBasedTriggeringPolicy size="20 MB"/> -->
+<!--     </RollingFile> -->
+	<RollingFile name="sbiLog" fileName="/data/log/sbi/addrSearch/addrSearch.log" filePattern="/data/log/sbi/addrSearch/%d{yyyy-MM-dd}_%iaddrSearch.log">
+		<PatternLayout pattern="%m%n"/>
+		<Policies>
+			<TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+			<SizeBasedTriggeringPolicy size="51200 KB"/>
+		</Policies>
+		<DefaultRolloverStrategy max="20"/>
+	</RollingFile>
+<!-- 	<File name="sbiLog" append="true" fileName="/data/log/sbi/addrSearch/addrSearch.log"> -->
+<!--       <PatternLayout pattern="%m%n"/> -->
+<!--     </File> -->
+    <File name="notFound" append="true" fileName="/data/log/sbi/addrSearch/addrSearch_notFound.log">
+      <PatternLayout pattern="%d{yyyy-MM-dd_HH:mm} [ %F:%L ] \t%m%n"/> 
+    </File>
+<!--     <RollingFile name="sbiLog" append="true" fileName="/data/log/sbi/found_%d{yyyyMMdd}.log" filePattern="/data/log/sbi/found_%d{yyyyMMdd}_%i.log"> -->
+<!--       <PatternLayout pattern="%m%n"/> -->
+<!--       <SizeBasedTriggeringPolicy size="20 MB"/> -->
+<!--     </RollingFile > -->
+<!--     <RollingFile name="notFound" append="true" fileName="/data/log/sbi/error-%d{yyyyMMdd}.log" filePattern="/data/log/sbi/error-%d{yyyyMMdd}.log%i"> -->
+<!--       <PatternLayout pattern="%d{yyyy-MM-dd_HH:mm} [ %F:%L ] \t%m%n"/> -->
+<!--       <SizeBasedTriggeringPolicy size="20 MB"/> -->
+<!--     </RollingFile > -->
+<!--     <File name="notFound" append="true" fileName="/data/log/sbi/addrSearch/notFound_1201.log"> -->
+<!--       <PatternLayout /> -->
+<!--       <PatternLayout pattern="%m%n"/> -->
+<!--       <PatternLayout pattern="%d{yyyy-MM-dd_HH:mm} [ %F:%L ] %m%n"/> -->
+<!--     </File> -->
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="sbiLog"/>
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+    <Logger name="anal" additivity="false">
+      <AppenderRef ref="notFound"/>
+    </Logger>
+  </Loggers>
+</Configuration>
